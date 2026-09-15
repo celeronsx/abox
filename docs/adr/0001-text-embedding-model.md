@@ -1,8 +1,8 @@
 # ADR-0001: Text embedding model for repository code and docs
 
-- Status: Proposed
+- Status: Accepted, validated by a local run on 2026-09-16, see the TODO
 - Date: 2026-09-16
-- Related: Lab 3 (Harness Engineering, fwdays), ToDo `docs/todo/embeddings-local-llama-cpp.md`
+- Related: Lab 3 (Harness Engineering, fwdays), TODO `docs/todo/embeddings-local-llama-cpp.md`
 
 ## Context
 
@@ -94,15 +94,15 @@ benchmark to compare against `all-MiniLM-L6-v2` from the default Qdrant MCP.
 
 ## Tokenomics
 
-The course asks to count agent tokens spent on preparing the ADR and executing the ToDo.
+The course asks to count agent tokens spent on preparing the ADR and executing the TODO.
 
 | Step | Tokens | Notes |
 |---|---|---|
 | Research and this ADR | to record | Claude Code session, read from the session cost at the end |
-| ToDo: local llama.cpp run | to record | |
-| ToDo: sidecar and llm-d in cluster | to record | |
+| TODO: local llama.cpp run | to record | |
+| TODO: sidecar and llm-d in cluster | to record | |
 
-The artifact that should make the next run cheaper is the ToDo itself, written as an
+The artifact that should make the next run cheaper is the TODO itself, written as an
 agent-executable runbook.
 
 ## Sources
