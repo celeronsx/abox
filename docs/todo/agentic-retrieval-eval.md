@@ -100,15 +100,17 @@ python3 docs/eval/eval.py docs/eval/eval-results.json
 Each question goes to both agents with "answer from the vector store only". A hit requires every
 value in `must` to appear in the answer.
 
-Result on 2026-09-16: `retrieval-agent-official` 7/8 (8/8 after fixing a stale gold value for
-q7), `retrieval-agent` 0/8. Before reading 0/8 as a retrieval result, check the MCP log:
+Result on 2026-09-16 with the patched Go MCP: both agents 9/9, including the negative control.
+Before the patch `retrieval-agent` scored 0/8. Before reading any 0/N as a retrieval result,
+check the MCP log:
 
 ```bash
 kubectl logs -n kagent deploy/qdrant-mcp -c mcp-server | grep vector_find | tail
 ```
 
 If the server logs hits and the agent reports none, you are looking at ADR-0003 Finding 1, the
-`structuredContent: {"body": ""}` in the Go server's responses. Verify with a raw call:
+`structuredContent: {"body": ""}` in the Go server's responses. The `body` must carry the same
+JSON as the text block; if it is empty, the image predates the fix. Verify with a raw call:
 
 ```bash
 kubectl run mcpq --rm -i --restart=Never -n kagent --image=curlimages/curl:8.11.0 -q -- sh -c '
@@ -122,5 +124,6 @@ curl -s -X POST $U -H "$H" -H "$A" -H "mcp-session-id: $SID" -d "{\"jsonrpc\":\"
 - [ ] both collections exist with the expected point counts
 - [ ] `retrieval-bench.txt` has a Recall and MRR line for both routes
 - [ ] `eval-results.json` has 8 rows per agent
-- [ ] any 0/8 at agent level is explained by a log, not reported as retrieval quality
+- [ ] any 0/N at agent level is explained by a log, not reported as retrieval quality
+- [ ] the negative control is answered with an explicit "not in the store" by both agents
 - [ ] tokens spent recorded, or the reason they were not

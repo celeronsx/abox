@@ -28,7 +28,16 @@ for label, agent in AGENTS.items():
         low = ans.lower()
         if g["must"] == ["__NO_ANSWER__"]:
             # negative control: the corpus has no answer, so a pass is an explicit "not found"
-            refused = any(p in low for p in ("not in the", "no result", "nothing", "not found", "does not contain", "no such", "cannot answer", "not present"))
+            # Free-text refusal comes in many shapes. The first version of this list
+            # missed "found no MCPServer ..." and scored a correct refusal as a miss,
+            # so the grader, not the agent, was wrong. Keep it broad and re-score from
+            # the stored answers rather than re-running the agents.
+            refused = any(p in low for p in (
+                "not in the", "no result", "nothing", "not found", "found no",
+                "does not contain", "no such", "cannot answer", "not present",
+                "no mcpserver", "no agent", "no modelconfig", "is not configured",
+                "there is no", "are no ", "absent",
+            ))
             rows.append({"id": g["id"], "hit": refused, "found": ["refused"] if refused else [], "missing": [] if refused else ["explicit not-found"], "sec": round(dt, 1), "answer": ans[-1200:]})
         else:
             found = [m for m in g["must"] if m.lower() in low]
