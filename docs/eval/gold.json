@@ -1,0 +1,99 @@
+[
+ {
+  "id": "q1",
+  "q": "Which MCPServer in namespace kagent runs the image neo4j/mcp, and what NEO4J_MCP_URI does it use?",
+  "must": [
+   "neo4j-mcp",
+   "bolt://neo4j.neo4j:7687"
+  ],
+  "expect_docs": [
+   "neo4j-mcp"
+  ]
+ },
+ {
+  "id": "q2",
+  "q": "What QDRANT_COLLECTION does the MCPServer named qdrant-mcp write to, and what EMBEDDINGS_BASE_URL does it call?",
+  "must": [
+   "abox-nomic",
+   "llama-cpp-embeddings.llama-cpp:8090"
+  ],
+  "expect_docs": [
+   "qdrant-mcp"
+  ]
+ },
+ {
+  "id": "q3",
+  "q": "Which ModelConfig points at baseUrl https://litellm.betterme.world/v1 and which model name does it set?",
+  "must": [
+   "litellm-gateway",
+   "claude-sonnet-5"
+  ],
+  "expect_docs": [
+   "litellm-gateway"
+  ]
+ },
+ {
+  "id": "q4",
+  "q": "Which ModelConfig uses provider OpenAI with model gpt-4.1-mini, and what is its apiKeySecret?",
+  "must": [
+   "default-model-config",
+   "kagent-openai"
+  ],
+  "expect_docs": [
+   "default-model-config"
+  ]
+ },
+ {
+  "id": "q5",
+  "q": "Which Agent's system prompt says that ingest happens only when asked and forbids re-ingesting to fill a gap during retrieval?",
+  "must": [
+   "retrieval-agent"
+  ],
+  "expect_docs": [
+   "retrieval-agent",
+   "retrieval-agent-official"
+  ]
+ },
+ {
+  "id": "q6",
+  "q": "Which MCPServer is started with cmd uvx and what EMBEDDING_MODEL is configured on it?",
+  "must": [
+   "qdrant-mcp-official",
+   "all-MiniLM-L6-v2"
+  ],
+  "expect_docs": [
+   "qdrant-mcp-official"
+  ]
+ },
+ {
+  "id": "q7",
+  "q": "In the manifest of the Agent named promql-agent, what is the value of spec.declarative.modelConfig?",
+  "must": [
+   "litellm-gateway"
+  ],
+  "expect_docs": [
+   "promql-agent"
+  ]
+ },
+ {
+  "id": "q8",
+  "q": "Which Agent manifests declare a tool of type Agent that delegates to k8s-agent? Name the agents.",
+  "must": [
+   "retrieval-agent",
+   "retrieval-agent-official"
+  ],
+  "expect_docs": [
+   "retrieval-agent",
+   "retrieval-agent-official"
+  ]
+ },
+ {
+  "id": "q9",
+  "q": "Which MCPServer in namespace kagent is configured with a Weaviate backend and what WEAVIATE_URL does it use?",
+  "must": [
+   "__NO_ANSWER__"
+  ],
+  "expect_docs": [],
+  "note": "negative control: nothing in the corpus mentions Weaviate. A hit here means the agent invented an answer. Scored inverted: pass when the agent says it is not in the store."
+ }
+]

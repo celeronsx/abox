@@ -1,0 +1,41 @@
+{
+ "apiVersion": "kagent.dev/v1alpha1",
+ "kind": "MCPServer",
+ "metadata": {
+  "name": "qdrant-mcp-official",
+  "namespace": "kagent"
+ },
+ "spec": {
+  "deployment": {
+   "args": [
+    "mcp-server-qdrant==0.8.1"
+   ],
+   "cmd": "uvx",
+   "env": {
+    "COLLECTION_NAME": "abox-minilm",
+    "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2",
+    "EMBEDDING_PROVIDER": "fastembed",
+    "FASTEMBED_CACHE_PATH": "/tmp/fastembed",
+    "HOME": "/tmp",
+    "QDRANT_URL": "http://qdrant.qdrant:6333",
+    "UV_CACHE_DIR": "/tmp/uv-cache"
+   },
+   "image": "ghcr.io/astral-sh/uv:python3.12-bookworm-slim",
+   "port": 3000,
+   "replicas": 1,
+   "resources": {
+    "limits": {
+     "cpu": "1",
+     "memory": "1Gi"
+    },
+    "requests": {
+     "cpu": "100m",
+     "memory": "256Mi"
+    }
+   }
+  },
+  "stdioTransport": {},
+  "timeout": "30s",
+  "transportType": "stdio"
+ }
+}

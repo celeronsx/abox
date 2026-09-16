@@ -8,3 +8,8 @@ resources:
   - llama-cpp-embeddings.yaml
   - phoenix.yaml
   - qdrant.yaml
+  - agent-retrieval.yaml
+  - agent-retrieval-official.yaml
+  - llmd.yaml
+  - mcp-servers.yaml
+  - neo4j.yaml

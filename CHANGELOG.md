@@ -25,3 +25,21 @@
 - `releases/llama-cpp-embeddings.yaml`, the shared embedding Deployment, Service and
   `/llamacpp` HTTPRoute for this fork. Diverges from upstream on image and args by decision
   of ADR-0002.
+- ADR-0003, agentic retrieval evaluation ([docs/adr/0003-agentic-retrieval-evaluation.md](docs/adr/0003-agentic-retrieval-evaluation.md)).
+  Same 8 kagent objects indexed through the upstream Go Qdrant MCP (nomic-768 via llama.cpp) and
+  the official mcp-server-qdrant (all-MiniLM-L6-v2, 384). Direct retrieval: nomic Recall@3 8/8,
+  MRR 0.854 against MiniLM 7/8, 0.830. Agent level: the nomic agent scored 0/8 because the Go
+  server returns `structuredContent: {"body": ""}` and kagent shows the model that instead of the
+  text. nomic stays the retrieval path, the fix is an upstream bug report.
+- TODO, agentic retrieval eval ([docs/todo/agentic-retrieval-eval.md](docs/todo/agentic-retrieval-eval.md)).
+  Corpus export, one-document-per-message ingest, direct Qdrant benchmark, agent-level eval, and
+  the checks that tell a serialisation bug from a retrieval miss. Scripts and results in `docs/eval/`.
+- `releases/` now carries the lab 4 objects from upstream `feat/llmd-embeddings` (neo4j, mcp-servers,
+  agent-retrieval, llmd, inference-extension CRDs) plus `qdrant-mcp-official` in `mcp-servers.yaml`
+  and `agent-retrieval-official.yaml`. Both retrieval agents ship with `stream: false`.
+
+### Fixed
+
+- kmcp stdio adapter crash-loop on kind, `fs.inotify.max_user_instances` 128 is not enough with
+  Flux, kagent and three MCP adapters on the same kernel. Documented in the TODO, raised to 8192 on
+  the nodes.

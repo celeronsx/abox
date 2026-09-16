@@ -1,0 +1,190 @@
+{
+ "nomic-768 (qdrant-mcp, llama.cpp)": {
+  "agent": "retrieval-agent",
+  "hits": 0,
+  "total": 8,
+  "avg_sec": 23.8,
+  "rows": [
+   {
+    "id": "q1",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "neo4j-mcp",
+     "bolt://neo4j.neo4j:7687"
+    ],
+    "sec": 21.0,
+    "answer": "STATE: completed\nI searched the vector store with several queries (\"neo4j/mcp\", \"NEO4J_MCP_URI\", \"MCPServer kagent\", \"Neo4j MCP server manifest\") and got no results back at all — the collection appears to have no entries matching this content (or is empty).\n\n**I cannot answer this question from the vector store.** No matching document was found for an MCPServer running the `neo4j/mcp` image or any `NEO4J_MCP_URI` value in namespace `kagent`. Per my constraints, I won't fall back to the graph or re-ingest to fill this gap — the data simply isn't present in the vector store as searched.\n"
+   },
+   {
+    "id": "q2",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "abox-nomic",
+     "llama-cpp-embeddings.llama-cpp:8090"
+    ],
+    "sec": 19.2,
+    "answer": "STATE: completed\nI searched the vector store with several queries (\"qdrant-mcp MCPServer QDRANT_COLLECTION EMBEDDINGS_BASE_URL\", \"qdrant-mcp\", \"MCPServer environment variables QDRANT_COLLECTION EMBEDDINGS_BASE_URL\", \"qdrant collection embeddings base url\", and \"MCPServer\"), and all returned empty results.\n\nThe vector store does not contain any record for an MCPServer named `qdrant-mcp`, or any content mentioning `QDRANT_COLLECTION` or `EMBEDDINGS_BASE_URL`. I cannot answer this from the vector store — there is nothing there to quote.\n"
+   },
+   {
+    "id": "q3",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "litellm-gateway",
+     "claude-sonnet-5"
+    ],
+    "sec": 74.9,
+    "answer": "STATE: completed\nI searched the vector store with multiple queries (\"ModelConfig baseUrl https://litellm.betterme.world/v1 model name\", \"baseUrl litellm.betterme.world\", \"ModelConfig provider OpenAI baseUrl\", \"ModelConfig\", and \"litellm\") and got no results (empty output) for all of them.\n\nThe vector store returned nothing relevant — I cannot find any ModelConfig document referencing the baseUrl `https://litellm.betterme.world/v1` or its model name. No such data appears to be present in the vector store.\n"
+   },
+   {
+    "id": "q4",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "default-model-config",
+     "kagent-openai"
+    ],
+    "sec": 9.8,
+    "answer": "STATE: completed\nI searched the vector store with several queries (\"ModelConfig provider OpenAI model gpt-4.1-mini apiKeySecret\", \"apiKeySecret OpenAI gpt-4.1-mini\", \"ModelConfig OpenAI\"), and all returned empty results.\n\nThe vector store has no matching content for this question — nothing about a ModelConfig using provider OpenAI with model gpt-4.1-mini, or its apiKeySecret, was found.\n"
+   },
+   {
+    "id": "q5",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "retrieval-agent"
+    ],
+    "sec": 19.7,
+    "answer": "STATE: completed\nThe vector store returns empty results for all queries I tried — including broad terms like \"Agent\" and \"system prompt\" that should match almost anything if the collection had content. There is nothing in the vector store matching this question; I found no Agent whose system prompt contains that language about ingest-only-when-asked or forbidding re-ingest during retrieval.\n\nPer the retrieval rules, I won't fetch manifests, delegate, or re-ingest to fill this gap — I'm reporting the absence as found via vector_find (empty results across multiple queries).\n"
+   },
+   {
+    "id": "q6",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "qdrant-mcp-official",
+     "all-MiniLM-L6-v2"
+    ],
+    "sec": 15.7,
+    "answer": "STATE: completed\nI searched the vector store using several queries (\"MCPServer command uvx EMBEDDING_MODEL\", \"uvx command MCPServer\", \"EMBEDDING_MODEL environment variable\", \"MCPServer\", \"command args env EMBEDDING_MODEL uvx MCP server configuration\"), and all returned empty results.\n\nThe vector store does not contain any data matching this query — there is nothing indexed about an MCPServer, a `uvx` command, or an `EMBEDDING_MODEL` setting. I cannot answer this from the vector store as it currently stands.\n"
+   },
+   {
+    "id": "q7",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "default-model-config"
+    ],
+    "sec": 14.2,
+    "answer": "STATE: completed\nI searched the vector store using several queries (\"promql-agent Agent spec.declarative.modelConfig\", \"promql-agent\", \"Agent promql-agent modelConfig ModelConfig reference\", \"kagent Agent declarative tools modelConfig\", \"promql\"), and none returned any results.\n\nThere is no manifest for an Agent named `promql-agent` in the vector store, so I cannot quote a value for `spec.declarative.modelConfig`. If you'd like, this could be ingested first, but per the instructions I won't fetch or ingest data during a retrieval-only request.\n"
+   },
+   {
+    "id": "q8",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "retrieval-agent",
+     "retrieval-agent-official"
+    ],
+    "sec": 15.7,
+    "answer": "STATE: completed\nThe vector store returned no results for any of these queries — it appears to contain nothing (empty output) for terms like \"k8s-agent\", \"Agent\", \"tools\", or \"delegate\".\n\nSince the vector store has no matching content, I cannot quote any manifest values or name any agents that declare a tool of type Agent delegating to k8s-agent. The collection appears to be empty or does not contain this information.\n"
+   }
+  ]
+ },
+ "minilm-384 (official mcp-server-qdrant)": {
+  "agent": "retrieval-agent-official",
+  "hits": 7,
+  "total": 8,
+  "avg_sec": 11.3,
+  "rows": [
+   {
+    "id": "q1",
+    "hit": true,
+    "found": [
+     "neo4j-mcp",
+     "bolt://neo4j.neo4j:7687"
+    ],
+    "missing": [],
+    "sec": 24.5,
+    "answer": "STATE: completed\nFrom the vector store (qdrant-find), the MCPServer manifest for `kagent/neo4j-mcp` contains:\n\n- **image:** `neo4j/mcp:v1.6.0`\n- **NEO4J_MCP_URI:** `bolt://neo4j.neo4j:7687`\n\nFull relevant excerpt:\n```\nkind: MCPServer\nmetadata:\n  name: neo4j-mcp\n  namespace: kagent\nspec:\n  deployment:\n    ...\n    env:\n      NEO4J_MCP_DATABASE: neo4j\n      NEO4J_MCP_PASSWORD: abox-neo4j\n      NEO4J_MCP_READ_ONLY: 'false'\n      NEO4J_MCP_TELEMETRY: 'false'\n      NEO4J_MCP_URI: bolt://neo4j.neo4j:7687\n      NEO4J_MCP_USERNAME: neo4j\n    image: neo4j/mcp:v1.6.0\n```\n"
+   },
+   {
+    "id": "q2",
+    "hit": true,
+    "found": [
+     "abox-nomic",
+     "llama-cpp-embeddings.llama-cpp:8090"
+    ],
+    "missing": [],
+    "sec": 8.1,
+    "answer": "STATE: completed\nFrom the vector store (qdrant-find), the manifest for **MCPServer `kagent/qdrant-mcp`** shows:\n\n```\nspec:\n  deployment:\n    env:\n      EMBEDDINGS_BASE_URL: http://llama-cpp-embeddings.llama-cpp:8090\n      QDRANT_COLLECTION: abox-nomic\n      QDRANT_URL: http://qdrant.qdrant:6333\n```\n\nSo, quoting exact values:\n\n- **QDRANT_COLLECTION**: `abox-nomic`\n- **EMBEDDINGS_BASE_URL**: `http://llama-cpp-embeddings.llama-cpp:8090`\n\nNote: this is distinct from the similarly-named `qdrant-mcp-official` MCPServer, which uses `COLLECTION_NAME: abox-minilm` and fastembed (no `EMBEDDINGS_BASE_URL`) — but that's a different object, not the one asked about.\n"
+   },
+   {
+    "id": "q3",
+    "hit": true,
+    "found": [
+     "litellm-gateway",
+     "claude-sonnet-5"
+    ],
+    "missing": [],
+    "sec": 9.1,
+    "answer": "STATE: completed\nFrom the vector store (collection abox-minilm):\n\nThe ModelConfig is **`litellm-gateway`** (namespace `kagent`). Its manifest content, quoted exactly:\n\n```\napiVersion: kagent.dev/v1alpha2\nkind: ModelConfig\nmetadata:\n  name: litellm-gateway\n  namespace: kagent\nspec:\n  apiKeySecret: litellm-gateway-key\n  apiKeySecretKey: OPENAI_API_KEY\n  model: claude-sonnet-5\n  openAI:\n    apiFormat: chatCompletions\n    baseUrl: https://litellm.betterme.world/v1\n  provider: OpenAI\n```\n\nSo it sets **model: claude-sonnet-5** for baseUrl `https://litellm.betterme.world/v1`.\n"
+   },
+   {
+    "id": "q4",
+    "hit": true,
+    "found": [
+     "default-model-config",
+     "kagent-openai"
+    ],
+    "missing": [],
+    "sec": 8.7,
+    "answer": "STATE: completed\nFound it in the **vector store** (qdrant-find):\n\n**ModelConfig: `default-model-config`** (namespace: `kagent`)\n\nQuoted from the stored manifest:\n```\napiVersion: kagent.dev/v1alpha2\nkind: ModelConfig\nmetadata:\n  name: default-model-config\n  namespace: kagent\nspec:\n  apiKeySecret: kagent-openai\n  apiKeySecretKey: OPENAI_API_KEY\n  model: gpt-4.1-mini\n  provider: OpenAI\n```\n\n**apiKeySecret: `kagent-openai`**\n\n(Note: there is another ModelConfig `litellm-gateway` with `provider: OpenAI`, but its `model` is `claude-sonnet-5`, not `gpt-4.1-mini`, so it does not match.)\n"
+   },
+   {
+    "id": "q5",
+    "hit": true,
+    "found": [
+     "retrieval-agent"
+    ],
+    "missing": [],
+    "sec": 10.4,
+    "answer": "STATE: completed\nFrom the vector store (qdrant-find), I found two Agent manifests whose `systemMessage` contains exactly that language, word-for-word:\n\n**1. `kagent/retrieval-agent`** (kind: Agent, namespace: kagent)\n**2. `kagent/retrieval-agent-official`** (kind: Agent, namespace: kagent)\n\nBoth system prompts contain the identical passage:\n\n> \"Retrieval reads what is already stored. Do not fetch manifests, do not delegate to another agent, and do not write. If the graph or the collection is missing something, say so and stop -- do not go and re-ingest to fill the gap. Ingest happens only when you are asked to ingest.\"\n\nThe two entries are near-duplicates (one references tools `qdrant-store`/`qdrant-find` via MCPServer `qdrant-mcp-official`, the other references `vector_store`/`vector_find` via MCPServer `qdrant-mcp`), but the sentence you asked about is verbatim identical in both.\n\nNote: this answer is from the vector store only, as instructed — I did not query the graph.\n"
+   },
+   {
+    "id": "q6",
+    "hit": true,
+    "found": [
+     "qdrant-mcp-official",
+     "all-MiniLM-L6-v2"
+    ],
+    "missing": [],
+    "sec": 8.0,
+    "answer": "STATE: completed\nFrom the vector store (qdrant-find), the manifest for **MCPServer `qdrant-mcp-official`** (namespace `kagent`) shows:\n\n- `cmd: uvx`\n- `env.EMBEDDING_MODEL: sentence-transformers/all-MiniLM-L6-v2`\n\nFull relevant excerpt:\n```\ncmd: uvx\nenv:\n  COLLECTION_NAME: abox-minilm\n  EMBEDDING_MODEL: sentence-transformers/all-MiniLM-L6-v2\n  EMBEDDING_PROVIDER: fastembed\n  ...\n```\n\nSo: **`qdrant-mcp-official`** is started with `cmd: uvx`, and its `EMBEDDING_MODEL` is `sentence-transformers/all-MiniLM-L6-v2`.\n"
+   },
+   {
+    "id": "q7",
+    "hit": false,
+    "found": [],
+    "missing": [
+     "default-model-config"
+    ],
+    "sec": 9.9,
+    "answer": "STATE: completed\nFound it in the vector store (qdrant-find). In the manifest for the Agent **promql-agent** (namespace `kagent`), the field is:\n\n```\nspec.declarative.modelConfig: litellm-gateway\n```\n\nSo the exact value is `litellm-gateway`.\n"
+   },
+   {
+    "id": "q8",
+    "hit": true,
+    "found": [
+     "retrieval-agent",
+     "retrieval-agent-official"
+    ],
+    "missing": [],
+    "sec": 11.4,
+    "answer": "STATE: completed\nBased on the vector store (qdrant-find) results, two Agent manifests declare a tool of `type: Agent` that delegates to `k8s-agent`:\n\n1. **retrieval-agent** (namespace: kagent) — its manifest contains:\n   ```\n   - agent:\n       apiGroup: kagent.dev\n       kind: Agent\n       name: k8s-agent\n       namespace: kagent\n     type: Agent\n   ```\n\n2. **retrieval-agent-official** (namespace: kagent) — its manifest contains the identical block:\n   ```\n   - agent:\n       apiGroup: kagent.dev\n       kind: Agent\n       name: k8s-agent\n       namespace: kagent\n     type: Agent\n   ```\n\nBoth entries quote `type: Agent` with `kind: Agent`, `name: k8s-agent`, `namespace: kagent` under their `spec.declarative.tools` list, which is the delegation-to-`k8s-agent` tool declaration.\n\n**Agents that delegate to k8s-agent: `retrieval-agent` and `retrieval-agent-official`.**\n\n(Source: vector store only, per instructions — no graph query performed.)\n"
+   }
+  ]
+ }
+}

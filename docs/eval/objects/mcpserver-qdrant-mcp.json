@@ -1,0 +1,34 @@
+{
+ "apiVersion": "kagent.dev/v1alpha1",
+ "kind": "MCPServer",
+ "metadata": {
+  "name": "qdrant-mcp",
+  "namespace": "kagent"
+ },
+ "spec": {
+  "deployment": {
+   "cmd": "/app/server",
+   "env": {
+    "EMBEDDINGS_BASE_URL": "http://llama-cpp-embeddings.llama-cpp:8090",
+    "QDRANT_COLLECTION": "abox-nomic",
+    "QDRANT_URL": "http://qdrant.qdrant:6333"
+   },
+   "image": "ghcr.io/den-vasyliev/abox/qdrant-mcp:0.4.0",
+   "port": 3000,
+   "replicas": 1,
+   "resources": {
+    "limits": {
+     "cpu": "500m",
+     "memory": "256Mi"
+    },
+    "requests": {
+     "cpu": "25m",
+     "memory": "32Mi"
+    }
+   }
+  },
+  "stdioTransport": {},
+  "timeout": "30s",
+  "transportType": "stdio"
+ }
+}
