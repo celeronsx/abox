@@ -84,7 +84,7 @@ empty store. Finding 1 explains why, and the fix is verified below.
    Verified in three steps: a regression test that fails on the original code and passes on the
    patched one, a raw `tools/call` against the rebuilt server returning
    `structuredContent.body` of 805 characters instead of 0, and the agent-level table above
-   going from 0/8 to 9/9 with nothing else changed.
+   going from 0/8 to 9/9 with nothing else changed. Merged upstream as #10.
 
 2. **Large tool-call arguments through LiteLLM are fragile.** With `stream: true` the model's
    calls to `qdrant-store` with a full manifest arrived as `{}` and failed validation on
@@ -115,9 +115,12 @@ empty store. Finding 1 explains why, and the fix is verified below.
    better retriever on this corpus (Recall@3 8/8, MRR 0.854), it keeps the 8192-token window
    from ADR-0001, and it is the only route that lets the embedder be swapped or scaled without
    touching the MCP server.
-2. Route A is usable again after the one-line fix in `text()`. The patch lives on the branch
-   `fix/mcp-structured-content` off upstream `feat/llmd-embeddings` and goes upstream as a pull
-   request, not as a fork-local patch, because every student running this lab hits it.
+2. Route A is usable again. The fix went upstream as
+   [den-vasyliev/abox#10](https://github.com/den-vasyliev/abox/pull/10), merged into
+   `feat/llmd-embeddings` on 2026-09-16, so this fork carries no local patch and anyone pulling
+   the branch gets working tool results. The image in `releases/mcp-servers.yaml` is still the
+   pre-fix `qdrant-mcp:0.4.0`: repoint it once a rebuilt tag is published upstream, and until
+   then a cluster built from these manifests reproduces the empty-result behaviour.
 3. Ingest is **one document per agent message**, not one instruction for the whole corpus. The
    runbook in the TODO does it that way.
 4. **`stream: false` on both retrieval agents**, kept until the tool-argument loss on the
@@ -136,6 +139,9 @@ empty store. Finding 1 explains why, and the fix is verified below.
 - Next: grow the gold set, and move scoring into Phoenix experiments so trajectory (which tool,
   how many calls, did it touch the graph when told not to) is scored instead of only the final
   text.
+- Open after the merge: bump `releases/mcp-servers.yaml` to an upstream image that contains #10
+  (or build one), rerun the ingest and both evals against it to confirm the numbers hold on a
+  published tag rather than a locally loaded one, and close upstream issue #9.
 - Tokenomics for this lab is not recorded. Every agent call in this ADR went through LiteLLM,
   where the per-key spend is visible, and Phoenix is not yet receiving kagent traces. Both are
   open items in ADR-0001.
